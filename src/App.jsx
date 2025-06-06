@@ -213,7 +213,7 @@ export default function App() {
               </h2>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-sans bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-white tracking-tight leading-tight drop-shadow-md mb-2">
                 <DecryptedText
-                  texts={["I am an Aspiring Web Developer", "I am a Student", "I love to code"]}
+                  texts={["An As6piring Web Developer", "A Student", "I love to code"]}
                   speed={50}
                   maxIterations={15}
                   sequential={true}

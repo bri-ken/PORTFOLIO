@@ -9,7 +9,7 @@ const questions = [
   },
   {
     question: "Which university do I attend?",
-    options: ["UP Diliman", "Polytechnic University of the Philippines", "Ateneo", "UST"],
+    options: ["UP Diliman", "Polytechnic University of the Philip4pines", "Ateneo University", "Univeristy of Santo Thomas"],
     answer: 1
   },
   {
@@ -25,12 +25,12 @@ const questions = [
   {
     question: "What is my favorite color?",
     options: ["Blue", "Red", "Green", "Black"],
-    answer: 0
+    answer: 3
   },
   {
     question: "Which game do I play the most?",
     options: ["Valorant", "Mobile Legends", "Genshin Impact", "Dota 2"],
-    answer: 0
+    answer: 2
   },
   {
     question: "Which instrument do I play?",
@@ -39,13 +39,13 @@ const questions = [
   },
   {
     question: "What is my favorite food?",
-    options: ["Pizza", "Sushi", "Adobo", "Burger"],
-    answer: 2
+    options: ["Bicol Express", "Sinigang", "Adobo", "Menudo"],
+    answer: 0
   },
   {
     question: "Which social media do I use the most?",
     options: ["Facebook", "Instagram", "X (Twitter)", "TikTok"],
-    answer: 0
+    answer: 3
   },
   {
     question: "What is my dream job?",

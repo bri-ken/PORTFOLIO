@@ -23,9 +23,9 @@ const EasterEgg = () => {
   if (!activated) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={() => setActivated(false)}>
-      <div className="bg-white rounded-lg p-8 shadow-2xl text-center max-w-xs mx-auto" onClick={e => e.stopPropagation()}>
-        <h2 className="text-2xl font-bold mb-4 text-blue-600">🎉 Easter Egg! 🎮</h2>
-        <p className="mb-4 text-gray-800">You found the secret Konami code!<br/>Here’s a mini-game: click the button as fast as you can!</p>
+      <div className="bg-gray-900 rounded-lg p-8 shadow-2xl text-center max-w-xs mx-auto" onClick={e => e.stopPropagation()}>
+        <h2 className="text-2xl font-bold mb-4 text-blue-400">🎉 Easter Egg! 🎮</h2>
+        <p className="mb-4 text-gray-200">You found the secret Konami code!<br/>Here’s a mini-game: click the button as fast as you can!</p>
         <MiniGame />
         <button className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={() => setActivated(false)}>Close</button>
       </div>
