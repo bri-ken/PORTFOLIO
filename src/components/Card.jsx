@@ -1,24 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = ({ title, description, imageUrl, techStack }) => {
+const Card = ({ children }) => {
   return (
     <StyledWrapper>
       <div className="card">
-        <img src={imageUrl} alt={title} className="card__image" />
-        <div className="card__content">
-          <p className="card__title">{title}</p>
-          <p className="card__description">{description}</p>
-          <div className="card__tech-stack">
-            {techStack.map((tech, index) => (
-              <img 
-                key={index}
-                src={`/assets/skills/${tech}.svg`}
-                alt={tech}
-                className="tech-icon"
-              />
-            ))}
+        <div className="card__header">
+          <div className="card__status-indicators">
+            <div className="indicator red" />
+            <div className="indicator yellow" />
+            <div className="indicator green" />
           </div>
+          <p className="card__ai-label">AI Assistant</p>
+        </div>
+        <div className="card__body">
+          {/* User prompt */}
+          <div className="card__user-prompt">
+            <span className="prompt-symbol">$</span>
+            <span className="prompt-text">How can I help you today?</span>
+          </div>
+          {/* Bot response or quiz content */}
+          {children ? (
+            <div className="card__bot-response">
+              <span className="response-symbol">&gt;</span>
+              <div className="response-content">{children}</div>
+            </div>
+          ) : (
+            <div className="card__bot-response">
+              <span className="response-symbol">&gt;</span>
+              <span className="response-placeholder">I'm your AI assistant. Ask me anything or try the quiz!</span>
+            </div>
+          )}
         </div>
       </div>
     </StyledWrapper>
@@ -27,89 +39,92 @@ const Card = ({ title, description, imageUrl, techStack }) => {
 
 const StyledWrapper = styled.div`
   .card {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
+    background-color: #111;
+    color: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #333;
+  }
+
+  .card__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    perspective: 1000px;
-    box-shadow: 0 0 0 5px #ffffff80;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  .card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  .card__status-indicators {
+    display: flex;
+    gap: 8px;
   }
 
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
   }
 
-  .card__content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: rgba(242, 242, 242, 0.9);
-    transform: rotateX(-90deg);
-    transform-origin: bottom;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  .red {
+    background-color: #e63946;
+  }
+
+  .yellow {
+    background-color: #f1faee;
+  }
+
+  .green {
+    background-color: #2a9d8f;
+  }
+
+  .card__ai-label {
+    font-size: 14px;
+    color: #a8dadc;
+  }
+
+  .card__body {
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
+    gap: 8px;
   }
 
-  .card:hover .card__content {
-    transform: rotateX(0deg);
-  }
-
-  .card__title {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .card:hover .card__image {
-    scale: 0.8;
-  }
-
-  .card__description {
-    margin: 10px 0 0;
-    font-size: 14px;
-    color: #777;
-    line-height: 1.4;
-    flex-grow: 1;
-  }
-
-  .card__tech-stack {
+  .card__user-prompt {
     display: flex;
-    gap: 12px;
-    margin-top: 12px;
-    justify-content: center;
     align-items: center;
+    gap: 8px;
   }
 
-  .tech-icon {
-    width: 28px;
-    height: 28px;
-    opacity: 0.8;
-    transition: all 0.3s ease;
+  .prompt-symbol {
+    color: #2a9d8f;
+    user-select: none;
   }
 
-  .tech-icon:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }`;
+  .prompt-text {
+    color: #fff;
+  }
 
-export default Card; 
+  .card__bot-response {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .response-symbol {
+    color: #457b9d;
+    user-select: none;
+  }
+
+  .response-content {
+    color: #fff;
+    width: 100%;
+  }
+
+  .response-placeholder {
+    color: #aaa;
+  }
+`;
+
+export default Card;

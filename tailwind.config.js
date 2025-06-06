@@ -68,6 +68,10 @@ export default {
           },
         },
       },
+      fontFamily: {
+        'sans': ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'title': ['Oswald', 'Impact', 'Arial Black', 'sans-serif'],
+      },
     },
   },
   plugins: [],

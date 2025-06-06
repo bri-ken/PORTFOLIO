@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 export default function DecryptedText({
+  texts,
   text,
   alternateText = "An Aspiring Web Developer",
   speed = 50,
@@ -17,23 +18,31 @@ export default function DecryptedText({
   freezeDuration = 3000, // 3 seconds in milliseconds
   ...props
 }) {
-  const [displayText, setDisplayText] = useState(text)
+  // Support cycling through multiple texts
+  const textArray = texts || [text || alternateText]
+  const [currentIdx, setCurrentIdx] = useState(0)
+  const [displayText, setDisplayText] = useState(textArray[0])
   const [isHovering, setIsHovering] = useState(false)
   const [isScrambling, setIsScrambling] = useState(false)
   const [revealedIndices, setRevealedIndices] = useState(new Set())
   const [hasAnimated, setHasAnimated] = useState(false)
   const [isFrozen, setIsFrozen] = useState(false)
-  const [currentText, setCurrentText] = useState(text)
+  const [currentText, setCurrentText] = useState(textArray[0])
   const containerRef = useRef(null)
   const animationTimeoutRef = useRef(null)
   const freezeTimeoutRef = useRef(null)
+
+  // Cycle to next text
+  const nextText = () => {
+    setCurrentIdx((prev) => (prev + 1) % textArray.length)
+  }
 
   const startAnimation = () => {
     setIsFrozen(false)
     setRevealedIndices(new Set())
     setIsScrambling(true)
-    // Toggle between the two texts
-    setCurrentText(prevText => prevText === text ? alternateText : text)
+    // Move to next text
+    nextText()
   }
 
   const freezeAnimation = () => {
@@ -42,6 +51,14 @@ export default function DecryptedText({
     setDisplayText(currentText)
     setRevealedIndices(new Set(Array.from({ length: currentText.length }, (_, i) => i)))
   }
+
+  useEffect(() => {
+    setCurrentText(textArray[currentIdx])
+    setDisplayText(textArray[currentIdx])
+    setRevealedIndices(new Set())
+    setIsScrambling(false)
+    setIsFrozen(false)
+  }, [currentIdx, textArray])
 
   useEffect(() => {
     let interval
@@ -60,12 +77,10 @@ export default function DecryptedText({
           const angle = (revealedSet.size * Math.PI * 2) / textLength
           const spiralRadius = (revealedSet.size / textLength) * radius
           const nextIndex = Math.floor(middle + spiralRadius * Math.cos(angle))
-          
           const validIndex = ((nextIndex % textLength) + textLength) % textLength
           if (!revealedSet.has(validIndex)) {
             return validIndex
           }
-          
           for (let i = 0; i < textLength; i++) {
             const checkIndex = (validIndex + i) % textLength
             if (!revealedSet.has(checkIndex)) return checkIndex
@@ -176,8 +191,7 @@ export default function DecryptedText({
     useOriginalCharsOnly,
     animateOn,
     isFrozen,
-    text,
-    alternateText,
+    freezeDuration
   ])
 
   useEffect(() => {
@@ -243,4 +257,4 @@ export default function DecryptedText({
       </span>
     </motion.span>
   )
-} 
+}
